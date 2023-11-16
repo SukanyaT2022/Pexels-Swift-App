@@ -23,7 +23,7 @@ struct Photo:Codable{
     var photographer_id: Int?
     var avg_color: String?
     var src: Source?
-    var liked: String?
+    var liked:Bool?
     var alt: String?
 }
 struct Source:Codable{
