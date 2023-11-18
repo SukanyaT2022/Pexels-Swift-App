@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 class  PhotoDetailViewController:
     UIViewController{
     var photoObject : Photo?
@@ -14,6 +15,8 @@ class  PhotoDetailViewController:
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var photographerLabel: UILabel!
+    
+    @IBOutlet weak var favouriteButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +40,22 @@ class  PhotoDetailViewController:
                     }
                 }
             }
+            task.resume()
+        }
+    }
+    //this button should save fav photos in the database
+    @IBAction func favouriteButtonAction(_ sender: Any) {
+        if let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext{
+            //crte entity and save data
+            let description = NSEntityDescription.entity(forEntityName: "PhotoEntity", in: context)
+            let photoEntity = NSManagedObject(entity: description!, insertInto: context) as? PhotoEntity
+            photoEntity?.photoId = String(photoObject?.photographer_id ?? 0)
+            //PhotoObject line 13
+            photoEntity?.name = photoObject?.alt
+            photoEntity?.photographerName = photoObject?.photographer
+            photoEntity?.imagePath = photoObject?.src?.small
+            //line below save all data in database
+            (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
         }
     }
 }

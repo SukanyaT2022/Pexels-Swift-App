@@ -69,9 +69,12 @@
                                     <constraint firstAttribute="height" constant="50" id="vQc-mF-xKm"/>
                                 </constraints>
                                 <segments>
-                                    <segment title="First"/>
-                                    <segment title="Second"/>
+                                    <segment title="All"/>
+                                    <segment title="Favourite"/>
                                 </segments>
+                                <connections>
+                                    <action selector="photoSegmantAction:" destination="P9a-RS-Xjh" eventType="valueChanged" id="Kvj-zr-wXf"/>
+                                </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="2iZ-v6-Zy1">
                                 <rect key="frame" x="0.0" y="163" width="393" height="655"/>
@@ -170,10 +173,26 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RXa-b2-uBK">
+                                <rect key="frame" x="96.666666666666686" y="613" width="200" height="45"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="jzC-SX-vgk"/>
+                                    <constraint firstAttribute="width" constant="200" id="rth-6h-7N7"/>
+                                </constraints>
+                                <color key="tintColor" systemColor="systemBackgroundColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Favourite"/>
+                                <connections>
+                                    <action selector="favouriteButtonAction:" destination="k7q-Mh-nyO" eventType="touchUpInside" id="YMa-ex-CqG"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Tts-H2-87H"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Tts-H2-87H" firstAttribute="bottom" secondItem="RXa-b2-uBK" secondAttribute="bottom" constant="160" id="KLz-eS-l0o"/>
+                            <constraint firstItem="RXa-b2-uBK" firstAttribute="centerX" secondItem="yl4-eL-TBy" secondAttribute="centerX" id="LbA-dm-loL"/>
                             <constraint firstItem="LqE-E5-Yve" firstAttribute="top" secondItem="ekG-Yp-9Vr" secondAttribute="bottom" constant="20" id="O2R-Hw-jsJ"/>
                             <constraint firstItem="k9q-3I-jcg" firstAttribute="top" secondItem="Tts-H2-87H" secondAttribute="top" id="ZF7-iG-peH"/>
                             <constraint firstItem="Tts-H2-87H" firstAttribute="trailing" secondItem="jbG-BX-GLx" secondAttribute="trailing" constant="20" id="dv8-0e-dBh"/>
@@ -189,6 +208,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Ytw-JX-Bnr"/>
                     <connections>
+                        <outlet property="favouriteButton" destination="RXa-b2-uBK" id="KvJ-P3-cWj"/>
                         <outlet property="photoImageView" destination="k9q-3I-jcg" id="mqL-Po-SBC"/>
                         <outlet property="photographerLabel" destination="LqE-E5-Yve" id="Xdu-W0-9gD"/>
                         <outlet property="titleLabel" destination="jbG-BX-GLx" id="Pfw-CJ-AYS"/>
@@ -220,6 +240,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
