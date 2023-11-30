@@ -11,7 +11,7 @@ import CoreData
 class  PhotoDetailViewController:
     UIViewController{
     var photoObject : Photo?
-    
+    var favouritePhotoObj : PhotoEntity?
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var photographerLabel: UILabel!
@@ -23,11 +23,22 @@ class  PhotoDetailViewController:
       displayData()
     }
     func displayData(){
-        titleLabel.text = photoObject?.alt
-        photographerLabel.text = photoObject?.photographer
-        if let imagePath = photoObject?.src?.small{
-            downloadImage(path:imagePath)
+        if let photoObject = photoObject{
+            titleLabel.text = photoObject.alt
+            photographerLabel.text = photoObject.photographer
+            if let imagePath = photoObject.src?.small{
+                downloadImage(path:imagePath)
+            }
         }
+        if let favouritePhotoObj = favouritePhotoObj{
+            titleLabel.text = favouritePhotoObj.name
+            photographerLabel.text = favouritePhotoObj.photographerName
+            if let imagePath = favouritePhotoObj.imagePath{
+                downloadImage(path:imagePath)
+            }
+            favouriteButton.isHidden = true
+        }
+        
     }
     //it downloadimage on the last screen
     func downloadImage(path: String){

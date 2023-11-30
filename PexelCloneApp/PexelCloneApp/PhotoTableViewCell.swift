@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 class PhotoTableViewCell: UITableViewCell{
     var photoData : Photo?
-    
+    var favourite : PhotoEntity?
     @IBOutlet weak var PhotoNameLabel: UILabel!
     @IBOutlet weak var photoIDLabel: UILabel!
 }
