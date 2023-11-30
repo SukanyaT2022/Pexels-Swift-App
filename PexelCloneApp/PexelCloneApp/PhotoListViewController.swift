@@ -26,6 +26,17 @@ class PhotoListViewController:UIViewController, UITableViewDelegate, UITableView
        photoListTableView.dataSource = self
         self.getPhoto()
     }
+    //viewwillappear function will call every time view about to appear 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if showFavourite == true{
+            fetchPhoto()
+            
+        }else{
+            getPhoto()
+        }
+        
+    }
     //call api here
     func getPhoto(){
         NetworkHelper().getPhotos(query: searchQuery) { result in
@@ -45,6 +56,7 @@ class PhotoListViewController:UIViewController, UITableViewDelegate, UITableView
         let fetchRequest = PhotoEntity.fetchRequest()
         let photoList = try? (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext.fetch(fetchRequest)
         favouritePhotoList = photoList
+        self.photoListTableView.reloadData()
     }
     @IBAction func photoSegmantAction(_ sender: UISegmentedControl) {
         //when segment 0 display show all when segment 1 show favourite
@@ -54,7 +66,7 @@ class PhotoListViewController:UIViewController, UITableViewDelegate, UITableView
         }else{
          showFavourite = true // if true show only favourite datat
             fetchPhoto()
-            self.photoListTableView.reloadData()
+          
         }
     }
     

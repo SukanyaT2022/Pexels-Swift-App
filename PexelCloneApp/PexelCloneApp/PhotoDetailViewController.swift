@@ -36,7 +36,10 @@ class  PhotoDetailViewController:
             if let imagePath = favouritePhotoObj.imagePath{
                 downloadImage(path:imagePath)
             }
-            favouriteButton.isHidden = true
+//            favouriteButton.isHidden = true
+            favouriteButton.setTitle("delete", for: .normal)
+            //change color when show delete button
+            favouriteButton.backgroundColor = UIColor.red
         }
         
     }
@@ -57,6 +60,12 @@ class  PhotoDetailViewController:
     //this button should save fav photos in the database
     @IBAction func favouriteButtonAction(_ sender: Any) {
         if let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext{
+            //delete favourite
+            if let favouritePhotoObj = favouritePhotoObj{
+                context.delete(favouritePhotoObj)
+                self.navigationController?.popViewController(animated: true)
+                return
+            }
             //crte entity and save data
             let description = NSEntityDescription.entity(forEntityName: "PhotoEntity", in: context)
             let photoEntity = NSManagedObject(entity: description!, insertInto: context) as? PhotoEntity
@@ -67,6 +76,8 @@ class  PhotoDetailViewController:
             photoEntity?.imagePath = photoObject?.src?.small
             //line below save all data in database
             (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+            //line below after hit favourite button it have to go back to all page
+            self.navigationController?.popViewController(animated: true)
         }
     }
 }
